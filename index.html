@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição BOPE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Oswald', sans-serif;
+            background-color: #1f2937;
+        }
+        
+        .bope-gradient {
+            background: linear-gradient(90deg, #7f1d1d 0%, #991b1b 50%, #7f1d1d 100%);
+        }
+        
+        .input-border {
+            border-bottom: 2px solid #991b1b;
+            background-color: #374151;
+            color: #f3f4f6;
+        }
+        
+        .input-border:focus {
+            border-bottom: 2px solid #7f1d1d;
+            outline: none;
+            background-color: #4b5563;
+        }
+        
+        .file-upload {
+            border: 2px dashed #991b1b;
+            background-color: #374151;
+        }
+        
+        .file-upload:hover {
+            background-color: #4b5563;
+        }
+        
+        .submit-btn {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo-container {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+        }
+        
+        .form-container {
+            background-color: #111827;
+            color: #f3f4f6;
+        }
+        
+        .label-text {
+            color: #e5e7eb;
+        }
+        
+        .terms-text {
+            color: #d1d5db;
+        }
+        
+        .footer-text {
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header with logo and banner -->
+        <header class="mb-8">
+            <div class="logo-container flex justify-center mb-4">
+                <div class="bg-gray-800 p-4 rounded-full shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#7f1d1d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                </div>
+            </div>
+            <div class="bope-gradient rounded-lg py-3 px-6 shadow-md">
+                <h1 class="text-white text-2xl md:text-3xl font-bold text-center uppercase tracking-wider">
+                    Batalhão de Operações Policiais Especiais
+                </h1>
+                <p class="text-white text-sm text-center mt-1 opacity-90">
+                    Formulário de Inscrição
+                </p>
+            </div>
+        </header>
+
+        <!-- Main form -->
+        <main>
+            <form class="form-container rounded-lg shadow-xl overflow-hidden">
+                <!-- Form header -->
+                <div class="bg-gray-900 px-6 py-4 border-b border-gray-800">
+                    <h2 class="text-xl font-bold text-white">Dados Pessoais</h2>
+                </div>
+                
+                <!-- Form body -->
+                <div class="p-6 space-y-6">
+                    <!-- Name -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="nome" class="block text-sm font-medium label-text mb-1">Seu Nome Completo*</label>
+                            <input type="text" id="nome" name="nome" required 
+                                   class="w-full px-3 py-2 input-border rounded-t-lg">
+                        </div>
+                        
+                        <div>
+                            <label for="nascimento" class="block text-sm font-medium label-text mb-1">Data de Nascimento*</label>
+                            <input type="date" id="nascimento" name="nascimento" required 
+                                   class="w-full px-3 py-2 input-border rounded-t-lg">
+                        </div>
+                    </div>
+                    
+                    <!-- Parents -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="pai" class="block text-sm font-medium label-text mb-1">Nome do Pai*</label>
+                            <input type="text" id="pai" name="pai" required 
+                                   class="w-full px-3 py-2 input-border rounded-t-lg">
+                        </div>
+                        
+                        <div>
+                            <label for="mae" class="block text-sm font-medium label-text mb-1">Nome da Mãe*</label>
+                            <input type="text" id="mae" name="mae" required 
+                                   class="w-full px-3 py-2 input-border rounded-t-lg">
+                        </div>
+                    </div>
+                    
+                    <!-- Passport -->
+                    <div>
+                        <label for="passaporte" class="block text-sm font-medium label-text mb-1">Número do Passaporte*</label>
+                            <input type="text" id="passaporte" name="passaporte" required 
+                                   class="w-full px-3 py-2 input-border rounded-t-lg">
+                    </div>
+                    
+                    <!-- RG Photo upload -->
+                    <div>
+                        <label class="block text-sm font-medium label-text mb-2">Foto do RG*</label>
+                        <div class="file-upload rounded-lg p-8 text-center cursor-pointer transition-colors duration-200">
+                            <div class="flex flex-col items-center justify-center">
+                                <i class="fas fa-cloud-upload-alt text-3xl text-red-500 mb-2"></i>
+                                <p class="text-sm text-gray-300 mb-1">
+                                    <span class="font-semibold text-red-400">Clique para enviar</span> ou arraste a foto aqui
+                                </p>
+                                <p class="text-xs text-gray-400">
+                                    Formatos aceitos: JPG, PNG (Máx. 5MB)
+                                </p>
+                            </div>
+                            <input type="file" id="rg-foto" name="rg-foto" accept="image/*" class="hidden" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Terms and submit -->
+                    <div class="pt-4">
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="terms" name="terms" type="checkbox" required 
+                                       class="focus:ring-red-500 h-4 w-4 text-red-600 border-gray-600 rounded bg-gray-700">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="terms" class="font-medium label-text">
+                                    Declaro que todas as informações fornecidas são verdadeiras
+                                </label>
+                                <p class="terms-text">
+                                    Falsas declarações podem resultar em penalidades legais.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-2">
+                        <button type="submit" 
+                                class="submit-btn w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-800">
+                            Enviar Inscrição
+                            <i class="fas fa-paper-plane ml-2 mt-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-8 text-center footer-text text-sm">
+            <p>BOPE - Batalhão de Operações Policiais Especiais</p>
+            <p class="mt-1">© 2023 Todos os direitos reservados</p>
+        </footer>
+    </div>
+
+    <script>
+        // Handle file upload display
+        document.querySelector('.file-upload').addEventListener('click', function() {
+            document.getElementById('rg-foto').click();
+        });
+        
+        document.getElementById('rg-foto').addEventListener('change', function(e) {
+            const fileName = e.target.files[0]?.name || 'Nenhum arquivo selecionado';
+            const uploadArea = document.querySelector('.file-upload');
+            
+            if (e.target.files.length > 0) {
+                uploadArea.innerHTML = `
+                    <div class="flex flex-col items-center justify-center">
+                        <i class="fas fa-check-circle text-3xl text-green-500 mb-2"></i>
+                        <p class="text-sm font-medium text-gray-300">${fileName}</p>
+                        <p class="text-xs text-gray-400 mt-1">Clique para alterar</p>
+                    </div>
+                `;
+                
+                // Re-add click event
+                uploadArea.addEventListener('click', function() {
+                    document.getElementById('rg-foto').click();
+                });
+            }
+        });
+        
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple validation
+            const inputs = document.querySelectorAll('input[required]');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (!input.value) {
+                    input.classList.add('border-red-500');
+                    isValid = false;
+                } else {
+                    input.classList.remove('border-red-500');
+                }
+            });
+            
+            if (isValid) {
+                // Show success message with dark theme
+                const successModal = document.createElement('div');
+                successModal.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50';
+                successModal.innerHTML = `
+                    <div class="bg-gray-800 rounded-lg p-6 max-w-sm w-full mx-4 shadow-xl">
+                        <div class="text-center">
+                            <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
+                            <h3 class="text-xl font-bold text-white mb-2">Inscrição enviada com sucesso!</h3>
+                            <p class="text-gray-300 mb-4">Entraremos em contato em breve.</p>
+                            <button class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200">
+                                Fechar
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(successModal);
+                
+                // Close modal
+                successModal.querySelector('button').addEventListener('click', function() {
+                    document.body.removeChild(successModal);
+                    this.reset();
+                    
+                    // Reset file upload display
+                    const uploadArea = document.querySelector('.file-upload');
+                    uploadArea.innerHTML = `
+                        <div class="flex flex-col items-center justify-center">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-red-500 mb-2"></i>
+                            <p class="text-sm text-gray-300 mb-1">
+                                <span class="font-semibold text-red-400">Clique para enviar</span> ou arraste a foto aqui
+                            </p>
+                            <p class="text-xs text-gray-400">
+                                Formatos aceitos: JPG, PNG (Máx. 5MB)
+                            </p>
+                        </div>
+                    `;
+                    
+                    // Re-add click event
+                    uploadArea.addEventListener('click', function() {
+                        document.getElementById('rg-foto').click();
+                    });
+                });
+            } else {
+                // Error message with dark theme
+                const errorElement = document.createElement('div');
+                errorElement.className = 'bg-red-900 text-red-100 px-4 py-3 rounded-md mb-4 flex items-center';
+                errorElement.innerHTML = `
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span>Por favor, preencha todos os campos obrigatórios.</span>
+                `;
+                
+                const formBody = document.querySelector('form > div');
+                formBody.insertBefore(errorElement, formBody.firstChild);
+                
+                // Remove error message after 5 seconds
+                setTimeout(() => {
+                    if (errorElement.parentNode) {
+                        errorElement.parentNode.removeChild(errorElement);
+                    }
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
