@@ -11,78 +11,73 @@
         
         body {
             font-family: 'Oswald', sans-serif;
-            background-color: #1f2937;
+            background-color: #1a1a1a;
+            min-height: 100vh;
         }
         
-        .bope-gradient {
+        .bope-header {
             background: linear-gradient(90deg, #7f1d1d 0%, #991b1b 50%, #7f1d1d 100%);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
         
-        .input-border {
-            border-bottom: 2px solid #991b1b;
-            background-color: #374151;
-            color: #f3f4f6;
+        .input-field {
+            background-color: #2d2d2d;
+            border-left: 4px solid #991b1b;
+            color: white;
         }
         
-        .input-border:focus {
-            border-bottom: 2px solid #7f1d1d;
+        .input-field:focus {
             outline: none;
-            background-color: #4b5563;
+            border-left: 4px solid #7f1d1d;
+            background-color: #333333;
         }
         
-        .file-upload {
-            border: 2px dashed #991b1b;
-            background-color: #374151;
-        }
-        
-        .file-upload:hover {
-            background-color: #4b5563;
-        }
-        
-        .submit-btn {
-            transition: all 0.3s ease;
+        .red-btn {
             background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+            transition: all 0.3s ease;
         }
         
-        .submit-btn:hover {
+        .red-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
         
-        .logo-container {
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
-        }
-        
         .form-container {
-            background-color: #111827;
-            color: #f3f4f6;
+            background-color: rgba(45, 45, 45, 0.8);
+            backdrop-filter: blur(5px);
+            border: 1px solid #7f1d1d;
         }
         
-        .label-text {
-            color: #e5e7eb;
+        .info-box {
+            background-color: rgba(45, 45, 45, 0.8);
+            border-left: 4px solid #991b1b;
         }
         
-        .terms-text {
-            color: #d1d5db;
+        .loading-spinner {
+            display: none;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid #fff;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
         }
         
-        .footer-text {
-            color: #9ca3af;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
-<body class="min-h-screen">
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
-        <!-- Header with logo and banner -->
-        <header class="mb-8">
-            <div class="logo-container flex justify-center mb-4">
-                <div class="bg-gray-800 p-4 rounded-full shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#7f1d1d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                    </svg>
-                </div>
+<body class="py-8 bg-gray-900">
+    <div class="container mx-auto px-4 max-w-3xl">
+        <!-- Header with logo -->
+        <header class="mb-8 flex flex-col items-center">
+            <div class="mb-4">
+                <img src="https://i.imgur.com/huLFdRQ.png" alt="BOPE Logo" class="h-24">
             </div>
-            <div class="bope-gradient rounded-lg py-3 px-6 shadow-md">
+            <div class="bope-header w-full rounded-lg py-3 px-6">
                 <h1 class="text-white text-2xl md:text-3xl font-bold text-center uppercase tracking-wider">
                     Batalhão de Operações Policiais Especiais
                 </h1>
@@ -94,66 +89,64 @@
 
         <!-- Main form -->
         <main>
-            <form class="form-container rounded-lg shadow-xl overflow-hidden">
+            <form id="bopeForm" class="form-container rounded-lg shadow-xl overflow-hidden">
                 <!-- Form header -->
-                <div class="bg-gray-900 px-6 py-4 border-b border-gray-800">
+                <div class="bg-gray-900 px-6 py-4 border-b border-red-900">
                     <h2 class="text-xl font-bold text-white">Dados Pessoais</h2>
                 </div>
                 
                 <!-- Form body -->
                 <div class="p-6 space-y-6">
                     <!-- Name -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="nome" class="block text-sm font-medium label-text mb-1">Seu Nome Completo*</label>
-                            <input type="text" id="nome" name="nome" required 
-                                   class="w-full px-3 py-2 input-border rounded-t-lg">
-                        </div>
-                        
-                        <div>
-                            <label for="nascimento" class="block text-sm font-medium label-text mb-1">Data de Nascimento*</label>
-                            <input type="date" id="nascimento" name="nascimento" required 
-                                   class="w-full px-3 py-2 input-border rounded-t-lg">
-                        </div>
+                    <div>
+                        <label for="nome" class="block text-sm font-medium text-gray-300 mb-1">Seu Nome Completo*</label>
+                        <input type="text" id="nome" name="nome" required 
+                               class="w-full px-4 py-3 input-field rounded-lg placeholder-gray-500">
+                    </div>
+                    
+                    <!-- Birth Date -->
+                    <div>
+                        <label for="nascimento" class="block text-sm font-medium text-gray-300 mb-1">Data de Nascimento*</label>
+                        <input type="date" id="nascimento" name="nascimento" required 
+                               class="w-full px-4 py-3 input-field rounded-lg text-gray-300">
                     </div>
                     
                     <!-- Parents -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label for="pai" class="block text-sm font-medium label-text mb-1">Nome do Pai*</label>
+                            <label for="pai" class="block text-sm font-medium text-gray-300 mb-1">Nome do Pai*</label>
                             <input type="text" id="pai" name="pai" required 
-                                   class="w-full px-3 py-2 input-border rounded-t-lg">
+                                   class="w-full px-4 py-3 input-field rounded-lg placeholder-gray-500">
                         </div>
                         
                         <div>
-                            <label for="mae" class="block text-sm font-medium label-text mb-1">Nome da Mãe*</label>
+                            <label for="mae" class="block text-sm font-medium text-gray-300 mb-1">Nome da Mãe*</label>
                             <input type="text" id="mae" name="mae" required 
-                                   class="w-full px-3 py-2 input-border rounded-t-lg">
+                                   class="w-full px-4 py-3 input-field rounded-lg placeholder-gray-500">
                         </div>
                     </div>
                     
-                    <!-- Passport -->
-                    <div>
-                        <label for="passaporte" class="block text-sm font-medium label-text mb-1">Número do Passaporte*</label>
+                    <!-- Passport and Contact -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="passaporte" class="block text-sm font-medium text-gray-300 mb-1">Número do Passaporte*</label>
                             <input type="text" id="passaporte" name="passaporte" required 
-                                   class="w-full px-3 py-2 input-border rounded-t-lg">
+                                   class="w-full px-4 py-3 input-field rounded-lg placeholder-gray-500">
+                        </div>
+                        
+                        <div>
+                            <label for="contato" class="block text-sm font-medium text-gray-300 mb-1">Número de Contato*</label>
+                            <input type="tel" id="contato" name="contato" required 
+                                   class="w-full px-4 py-3 input-field rounded-lg placeholder-gray-500">
+                        </div>
                     </div>
                     
-                    <!-- RG Photo upload -->
+                    <!-- RG Photo URL -->
                     <div>
-                        <label class="block text-sm font-medium label-text mb-2">Foto do RG*</label>
-                        <div class="file-upload rounded-lg p-8 text-center cursor-pointer transition-colors duration-200">
-                            <div class="flex flex-col items-center justify-center">
-                                <i class="fas fa-cloud-upload-alt text-3xl text-red-500 mb-2"></i>
-                                <p class="text-sm text-gray-300 mb-1">
-                                    <span class="font-semibold text-red-400">Clique para enviar</span> ou arraste a foto aqui
-                                </p>
-                                <p class="text-xs text-gray-400">
-                                    Formatos aceitos: JPG, PNG (Máx. 5MB)
-                                </p>
-                            </div>
-                            <input type="file" id="rg-foto" name="rg-foto" accept="image/*" class="hidden" required>
-                        </div>
+                        <label for="rg-url" class="block text-sm font-medium text-gray-300 mb-1">URL da Foto do RG*</label>
+                        <input type="url" id="rg-url" name="rg-url" required 
+                               class="w-full px-4 py-3 input-field rounded-lg placeholder-gray-500"
+                               placeholder="https://exemplo.com/foto-rg.jpg">
                     </div>
                     
                     <!-- Terms and submit -->
@@ -161,66 +154,83 @@
                         <div class="flex items-start">
                             <div class="flex items-center h-5">
                                 <input id="terms" name="terms" type="checkbox" required 
-                                       class="focus:ring-red-500 h-4 w-4 text-red-600 border-gray-600 rounded bg-gray-700">
+                                       class="focus:ring-red-800 h-4 w-4 text-red-800 border-gray-300 rounded">
                             </div>
                             <div class="ml-3 text-sm">
-                                <label for="terms" class="font-medium label-text">
+                                <label for="terms" class="font-medium text-gray-300">
                                     Declaro que todas as informações fornecidas são verdadeiras
                                 </label>
-                                <p class="terms-text">
+                                <p class="text-gray-400">
                                     Falsas declarações podem resultar em penalidades legais.
                                 </p>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="pt-2">
-                        <button type="submit" 
-                                class="submit-btn w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-800">
+                    <div class="pt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button type="reset" 
+                                class="red-btn w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-800">
+                            Limpar
+                            <i class="fas fa-broom ml-2 mt-1"></i>
+                        </button>
+                        <button type="submit" id="submitBtn"
+                                class="red-btn w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-800">
                             Enviar Inscrição
                             <i class="fas fa-paper-plane ml-2 mt-1"></i>
+                            <div id="loadingSpinner" class="loading-spinner"></div>
                         </button>
                     </div>
                 </div>
             </form>
         </main>
 
-        <!-- Footer -->
-        <footer class="mt-8 text-center footer-text text-sm">
-            <p>BOPE - Batalhão de Operações Policiais Especiais</p>
-            <p class="mt-1">© 2023 Todos os direitos reservados</p>
+        <!-- Information Footer -->
+        <footer class="mt-8 space-y-4">
+            <div class="info-box p-4 rounded-lg">
+                <h3 class="text-lg font-bold text-white mb-2 flex items-center">
+                    <i class="fas fa-info-circle text-red-500 mr-2"></i>
+                    Como converter imagem para URL
+                </h3>
+                <ol class="text-gray-300 text-sm space-y-2 list-decimal list-inside">
+                    <li>Acesse um site de hospedagem de imagens como <a href="https://imgur.com" class="text-red-400 hover:underline" target="_blank">Imgur</a></li>
+                    <li>Faça o upload da foto do seu RG</li>
+                    <li>Copie o link direto da imagem (deve terminar com .jpg, .png, etc.)</li>
+                    <li>Cole o link no campo "URL da Foto do RG" acima</li>
+                </ol>
+            </div>
+            
+            <div class="info-box p-4 rounded-lg">
+                <h3 class="text-lg font-bold text-white mb-2 flex items-center">
+                    <i class="fab fa-discord text-blue-400 mr-2"></i>
+                    Discord da City
+                </h3>
+                <div class="flex items-center">
+                    <div class="bg-gray-800 p-2 rounded-lg mr-3">
+                        <i class="fab fa-discord text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <p class="text-gray-300 text-sm">Entre no nosso Discord para mais informações:</p>
+                        <p class="text-white font-medium">discord.gg/cityrp</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center text-gray-400 text-sm mt-6">
+                <p>BOPE - Batalhão de Operações Policiais Especiais</p>
+                <p class="mt-1">© 2023 Todos os direitos reservados</p>
+            </div>
         </footer>
     </div>
 
     <script>
-        // Handle file upload display
-        document.querySelector('.file-upload').addEventListener('click', function() {
-            document.getElementById('rg-foto').click();
-        });
-        
-        document.getElementById('rg-foto').addEventListener('change', function(e) {
-            const fileName = e.target.files[0]?.name || 'Nenhum arquivo selecionado';
-            const uploadArea = document.querySelector('.file-upload');
-            
-            if (e.target.files.length > 0) {
-                uploadArea.innerHTML = `
-                    <div class="flex flex-col items-center justify-center">
-                        <i class="fas fa-check-circle text-3xl text-green-500 mb-2"></i>
-                        <p class="text-sm font-medium text-gray-300">${fileName}</p>
-                        <p class="text-xs text-gray-400 mt-1">Clique para alterar</p>
-                    </div>
-                `;
-                
-                // Re-add click event
-                uploadArea.addEventListener('click', function() {
-                    document.getElementById('rg-foto').click();
-                });
-            }
-        });
-        
-        // Form submission
-        document.querySelector('form').addEventListener('submit', function(e) {
+        document.getElementById('bopeForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+            
+            // Show loading spinner
+            const submitBtn = document.getElementById('submitBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            submitBtn.disabled = true;
+            loadingSpinner.style.display = 'inline-block';
             
             // Simple validation
             const inputs = document.querySelectorAll('input[required]');
@@ -228,74 +238,112 @@
             
             inputs.forEach(input => {
                 if (!input.value) {
-                    input.classList.add('border-red-500');
+                    input.classList.add('border', 'border-red-500');
                     isValid = false;
                 } else {
-                    input.classList.remove('border-red-500');
+                    input.classList.remove('border', 'border-red-500');
                 }
             });
             
-            if (isValid) {
-                // Show success message with dark theme
-                const successModal = document.createElement('div');
-                successModal.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50';
-                successModal.innerHTML = `
-                    <div class="bg-gray-800 rounded-lg p-6 max-w-sm w-full mx-4 shadow-xl">
-                        <div class="text-center">
-                            <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
-                            <h3 class="text-xl font-bold text-white mb-2">Inscrição enviada com sucesso!</h3>
-                            <p class="text-gray-300 mb-4">Entraremos em contato em breve.</p>
-                            <button class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200">
-                                Fechar
-                            </button>
-                        </div>
-                    </div>
-                `;
+            if (!isValid) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                submitBtn.disabled = false;
+                loadingSpinner.style.display = 'none';
+                return;
+            }
+            
+            // Get form data
+            const formData = {
+                nome: document.getElementById('nome').value,
+                nascimento: document.getElementById('nascimento').value,
+                pai: document.getElementById('pai').value,
+                mae: document.getElementById('mae').value,
+                passaporte: document.getElementById('passaporte').value,
+                contato: document.getElementById('contato').value,
+                rg_url: document.getElementById('rg-url').value
+            };
+            
+            try {
+                // Replace with your actual Discord webhook URL
+                const webhookURL = 'SEU_WEBHOOK_DISCORD_AQUI';
                 
-                document.body.appendChild(successModal);
+                // Create Discord embed
+                const embed = {
+                    title: "📄 Nova Inscrição BOPE",
+                    color: 0x7f1d1d, // Dark red color
+                    thumbnail: {
+                        url: "https://i.imgur.com/huLFdRQ.png" // BOPE logo
+                    },
+                    fields: [
+                        {
+                            name: "👤 Nome Completo",
+                            value: formData.nome,
+                            inline: true
+                        },
+                        {
+                            name: "🎂 Data de Nascimento",
+                            value: formData.nascimento,
+                            inline: true
+                        },
+                        {
+                            name: "👨 Nome do Pai",
+                            value: formData.pai,
+                            inline: true
+                        },
+                        {
+                            name: "👩 Nome da Mãe",
+                            value: formData.mae,
+                            inline: true
+                        },
+                        {
+                            name: "📇 Passaporte",
+                            value: formData.passaporte,
+                            inline: true
+                        },
+                        {
+                            name: "📱 Contato",
+                            value: formData.contato,
+                            inline: true
+                        },
+                        {
+                            name: "🖼️ Foto do RG",
+                            value: `[Clique para ver](${formData.rg_url})`,
+                            inline: false
+                        }
+                    ],
+                    footer: {
+                        text: "BOPE - Batalhão de Operações Policiais Especiais",
+                        icon_url: "https://i.imgur.com/huLFdRQ.png"
+                    },
+                    timestamp: new Date().toISOString()
+                };
                 
-                // Close modal
-                successModal.querySelector('button').addEventListener('click', function() {
-                    document.body.removeChild(successModal);
-                    this.reset();
-                    
-                    // Reset file upload display
-                    const uploadArea = document.querySelector('.file-upload');
-                    uploadArea.innerHTML = `
-                        <div class="flex flex-col items-center justify-center">
-                            <i class="fas fa-cloud-upload-alt text-3xl text-red-500 mb-2"></i>
-                            <p class="text-sm text-gray-300 mb-1">
-                                <span class="font-semibold text-red-400">Clique para enviar</span> ou arraste a foto aqui
-                            </p>
-                            <p class="text-xs text-gray-400">
-                                Formatos aceitos: JPG, PNG (Máx. 5MB)
-                            </p>
-                        </div>
-                    `;
-                    
-                    // Re-add click event
-                    uploadArea.addEventListener('click', function() {
-                        document.getElementById('rg-foto').click();
-                    });
+                // Send to Discord webhook
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: "BOPE Inscrições",
+                        avatar_url: "https://i.imgur.com/huLFdRQ.png",
+                        embeds: [embed]
+                    })
                 });
-            } else {
-                // Error message with dark theme
-                const errorElement = document.createElement('div');
-                errorElement.className = 'bg-red-900 text-red-100 px-4 py-3 rounded-md mb-4 flex items-center';
-                errorElement.innerHTML = `
-                    <i class="fas fa-exclamation-circle mr-2"></i>
-                    <span>Por favor, preencha todos os campos obrigatórios.</span>
-                `;
                 
-                const formBody = document.querySelector('form > div');
-                formBody.insertBefore(errorElement, formBody.firstChild);
-                
-                // Remove error message after 5 seconds
-                setTimeout(() => {
-                    if (errorElement.parentNode) {
-                        errorElement.parentNode.removeChild(errorElement);
-                    }
-                }, 5000);
+                if (response.ok) {
+                    // Show success message
+                    alert('Inscrição enviada com sucesso! Entraremos em contato em breve.');
+                    this.reset();
+                } else {
+                    throw new Error('Erro ao enviar para o Discord');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Ocorreu um erro ao enviar a inscrição. Por favor, tente novamente mais tarde.');
+            } finally {
+                submitBtn.disabled = false;
+                loadingSpinner.style.display = 'none';
             }
         });
     </script>
