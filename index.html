@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tropa do ifood</title>
+  <title>Códigos de Condomínio</title>
   <style>
     body {
       margin: 0;
@@ -54,3 +54,377 @@
       padding: 0.7rem;
     }
     .bloco-title {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid #900000;
+      padding-bottom: 0.3rem;
+      color: #f44336;
+    }
+    .codigo-subitem {
+      display: flex;
+      gap: 1rem;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid #555;
+      color: #ddd;
+      font-size: 0.9rem;
+      align-items: center;
+    }
+    .codigo-subitem:last-child {
+      border-bottom: none;
+    }
+    .codigo-subitem > div {
+      flex: 1;
+    }
+    .codigo-subitem .nome {
+      font-weight: bold;
+      color: #fff;
+    }
+    .btn-apagar {
+      background-color: transparent;
+      border: none;
+      color: #f44336;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      padding-left: 0.5rem;
+      transition: color 0.3s;
+    }
+    .btn-apagar:hover {
+      color: #ff6666;
+    }
+    button.admin-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background-color: #900000;
+      border-radius: 50%;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px #900000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    /* Modal background */
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal {
+      background-color: #2a2a2a;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 320px;
+      box-shadow: 0 0 15px #900000;
+      color: #ddd;
+    }
+    .modal h2 {
+      margin-top: 0;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+      background-color: #444;
+      color: white;
+    }
+    button {
+      background-color: #900000;
+      border: none;
+      color: white;
+      padding: 0.7rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #b22222;
+    }
+    .error {
+      color: #f44336;
+      margin-bottom: 1rem;
+      font-weight: bold;
+      text-align: center;
+    }
+    button.logout-btn {
+      background-color: #444;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>Códigos de Condomínio</header>
+
+<main id="main-list">
+  <p>Carregando códigos...</p>
+</main>
+
+<button class="admin-btn" id="btn-admin">Adm</button>
+
+<!-- Modal senha admin -->
+<div id="modal-login" class="modal-bg" style="display:none;">
+  <div class="modal">
+    <h2>Acesso Admin</h2>
+    <input type="password" id="input-password" placeholder="Digite a senha" />
+    <div class="error" id="login-error" style="display:none;"></div>
+    <button id="btn-login">Entrar</button>
+    <button id="btn-login-cancel" class="logout-btn">Cancelar</button>
+  </div>
+</div>
+
+<!-- Modal adicionar código -->
+<div id="modal-admin" class="modal-bg" style="display:none;">
+  <div class="modal">
+    <h2>Adicionar Código</h2>
+
+    <label for="select-categoria">Categoria</label>
+    <select id="select-categoria">
+      <option value="Oásis">Oásis</option>
+      <option value="Ouro Verde">Ouro Verde</option>
+    </select>
+
+    <label for="input-bloco">Bloco</label>
+    <input type="text" id="input-bloco" />
+
+    <label for="input-nome">Nome</label>
+    <input type="text" id="input-nome" />
+
+    <label for="input-ap">AP</label>
+    <input type="text" id="input-ap" />
+
+    <label for="input-codigo">Código</label>
+    <input type="text" id="input-codigo" />
+
+    <div class="error" id="admin-error" style="display:none;"></div>
+
+    <button id="btn-salvar">Salvar</button>
+    <button id="btn-logout" class="logout-btn">Sair</button>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+  import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC5iwoyZCtMawE50wsMycgDdpn0NelPkH8",
+    authDomain: "ooss-dc3bc.firebaseapp.com",
+    databaseURL: "https://ooss-dc3bc-default-rtdb.firebaseio.com",
+    projectId: "ooss-dc3bc",
+    storageBucket: "ooss-dc3bc.firebasestorage.app",
+    messagingSenderId: "808185149705",
+    appId: "1:808185149705:web:e35a5635346a27aaf9bbd8",
+    measurementId: "G-1PCPB7TZMW"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // Elementos
+  const btnAdmin = document.getElementById("btn-admin");
+  const modalLogin = document.getElementById("modal-login");
+  const inputPassword = document.getElementById("input-password");
+  const btnLogin = document.getElementById("btn-login");
+  const loginError = document.getElementById("login-error");
+  const btnLoginCancel = document.getElementById("btn-login-cancel");
+
+  const modalAdmin = document.getElementById("modal-admin");
+  const selectCategoria = document.getElementById("select-categoria");
+  const inputBloco = document.getElementById("input-bloco");
+  const inputNome = document.getElementById("input-nome");
+  const inputAp = document.getElementById("input-ap");
+  const inputCodigo = document.getElementById("input-codigo");
+  const btnSalvar = document.getElementById("btn-salvar");
+  const btnLogout = document.getElementById("btn-logout");
+  const adminError = document.getElementById("admin-error");
+
+  const mainList = document.getElementById("main-list");
+
+  let loggedIn = false;
+  let codigosData = {};
+
+  // Abrir modal login
+  btnAdmin.addEventListener("click", () => {
+    modalLogin.style.display = "flex";
+    inputPassword.value = "";
+    loginError.style.display = "none";
+    inputPassword.focus();
+  });
+
+  btnLoginCancel.addEventListener("click", () => {
+    modalLogin.style.display = "none";
+  });
+
+  btnLogin.addEventListener("click", () => {
+    const senha = inputPassword.value.trim();
+    if (senha === "Benny31") {
+      loggedIn = true;
+      modalLogin.style.display = "none";
+      abrirModalAdmin();
+    } else {
+      loginError.textContent = "Senha incorreta!";
+      loginError.style.display = "block";
+    }
+  });
+
+  inputPassword.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") btnLogin.click();
+  });
+
+  // Abrir modal admin para adicionar códigos
+  function abrirModalAdmin() {
+    modalAdmin.style.display = "flex";
+    adminError.style.display = "none";
+    selectCategoria.value = "Oásis";
+    inputBloco.value = "";
+    inputNome.value = "";
+    inputAp.value = "";
+    inputCodigo.value = "";
+    inputBloco.focus();
+  }
+
+  btnLogout.addEventListener("click", () => {
+    loggedIn = false;
+    modalAdmin.style.display = "none";
+  });
+
+  btnSalvar.addEventListener("click", () => {
+    const categoria = selectCategoria.value;
+    const bloco = inputBloco.value.trim();
+    const nome = inputNome.value.trim();
+    const ap = inputAp.value.trim();
+    const codigo = inputCodigo.value.trim();
+
+    if (!bloco || !nome || !ap || !codigo) {
+      adminError.textContent = "Preencha todos os campos!";
+      adminError.style.display = "block";
+      return;
+    }
+
+    adminError.style.display = "none";
+
+    const codigosRef = ref(db, "codigos");
+    push(codigosRef, {
+      categoria,
+      bloco,
+      nome,
+      ap,
+      codigo,
+    }).then(() => {
+      alert("Código salvo com sucesso!");
+      selectCategoria.value = "Oásis";
+      inputBloco.value = "";
+      inputNome.value = "";
+      inputAp.value = "";
+      inputCodigo.value = "";
+      inputBloco.focus();
+    }).catch((error) => {
+      adminError.textContent = "Erro ao salvar: " + error.message;
+      adminError.style.display = "block";
+    });
+  });
+
+  // Apagar código
+  function apagarCodigo(id) {
+    if (!confirm("Confirma apagar este código?")) return;
+    const codigoRef = ref(db, `codigos/${id}`);
+    remove(codigoRef).catch(err => alert("Erro ao apagar: " + err.message));
+  }
+
+  // Ordena blocos numericamente (blocos podem ser string, tenta converter para número)
+  function ordenarBlocos(a, b) {
+    const numA = parseInt(a);
+    const numB = parseInt(b);
+    if (!isNaN(numA) && !isNaN(numB)) return numA - numB;
+    return a.localeCompare(b);
+  }
+
+  // Atualiza a lista de códigos na página, agrupando e ordenando
+  function atualizarLista(codigos) {
+    codigosData = codigos || {};
+
+    // Organizar por categoria -> bloco -> lista de códigos
+    const organizados = {
+      "Oásis": {},
+      "Ouro Verde": {}
+    };
+
+    for (const id in codigosData) {
+      const c = codigosData[id];
+      if (!organizados[c.categoria]) organizados[c.categoria] = {};
+      if (!organizados[c.categoria][c.bloco]) organizados[c.categoria][c.bloco] = [];
+      organizados[c.categoria][c.bloco].push({ ...c, id });
+    }
+
+    // Criar HTML agrupado
+    let html = "";
+
+    for (const categoria of ["Oásis", "Ouro Verde"]) {
+      const blocos = organizados[categoria];
+      html += `<section class="categoria-section"><h3>${categoria}</h3>`;
+
+      const blocosOrdenados = Object.keys(blocos).sort(ordenarBlocos);
+
+      if (blocosOrdenados.length === 0) {
+        html += "<p>Nenhum código salvo nesta categoria.</p>";
+      } else {
+        blocosOrdenados.forEach(bloco => {
+          html += `<div class="bloco-box"><div class="bloco-title">Bloco ${bloco}</div>`;
+
+          blocos[bloco].forEach(item => {
+            html += `<div class="codigo-subitem">
+              <div class="nome">${item.nome}</div>
+              <div>AP: ${item.ap}</div>
+              <div>Código: ${item.codigo}</div>
+              ${loggedIn ? `<button class="btn-apagar" data-id="${item.id}" title="Apagar código">×</button>` : ""}
+            </div>`;
+          });
+
+          html += `</div>`; // fim bloco-box
+        });
+      }
+      html += `</section>`;
+    }
+
+    mainList.innerHTML = html;
+
+    // Adiciona event listeners para apagar
+    if (loggedIn) {
+      document.querySelectorAll(".btn-apagar").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const id = e.currentTarget.getAttribute("data-id");
+          apagarCodigo(id);
+        });
+      });
+    }
+  }
+
+  // Ouvir mudanças no Firebase
+  onValue(ref(db, "codigos"), (snapshot) => {
+    atualizarLista(snapshot.val());
+  });
+
+</script>
+
+</body>
+</html>
