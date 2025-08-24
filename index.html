@@ -1,431 +1,45 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tropa do ifood</title>
+  <meta charset="UTF-8">
+  <title>Carregando...</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <style>
-    body {
+    html, body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #1e1e1e;
-      color: #ddd;
+      height: 100%;
+      background: #111;
+      color: #0f0;
       display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
-    header {
-      background-color: #900000;
-      padding: 1rem;
-      text-align: center;
-      font-weight: bold;
-      font-size: 1.5rem;
-      color: white;
-    }
-    main {
-      flex: 1;
-      overflow-y: auto;
-      padding: 1rem;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .categoria-section {
-      background-color: #2a2a2a;
-      padding: 1rem;
-      border-radius: 10px;
-      width: 45%;
-      min-width: 300px;
-      box-shadow: 0 0 10px #900000;
-    }
-    .categoria-section h3 {
-      margin-top: 0;
-      text-align: center;
-      border-bottom: 2px solid #900000;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-      color: #ff4d4d;
-    }
-    .bloco-box {
-      background-color: #333;
-      margin-bottom: 1rem;
-      border-radius: 8px;
-      padding: 0.7rem;
-    }
-    .bloco-title {
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-      border-bottom: 1px solid #900000;
-      padding-bottom: 0.3rem;
-      color: #f44336;
-    }
-    .codigo-subitem {
-      display: flex;
-      gap: 1rem;
-      padding: 0.3rem 0;
-      border-bottom: 1px solid #555;
-      color: #ddd;
-      font-size: 0.9rem;
       align-items: center;
-    }
-    .codigo-subitem:last-child {
-      border-bottom: none;
-    }
-    .codigo-subitem > div {
-      flex: 1;
-    }
-    .codigo-subitem .nome {
-      font-weight: bold;
-      color: #fff;
-    }
-    .btn-apagar {
-      background-color: transparent;
-      border: none;
-      color: #f44336;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1rem;
-      padding-left: 0.5rem;
-      transition: color 0.3s;
-    }
-    .btn-apagar:hover {
-      color: #ff6666;
-    }
-    button.admin-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      background-color: #900000;
-      border-radius: 50%;
-      border: none;
-      color: white;
-      font-weight: bold;
-      font-size: 1.2rem;
-      cursor: pointer;
-      box-shadow: 0 0 10px #900000;
-      display: flex;
       justify-content: center;
-      align-items: center;
-      z-index: 999;
+      font-family: monospace;
     }
-    /* Modal background */
-    .modal-bg {
-      position: fixed;
-      inset: 0;
-      background-color: rgba(0,0,0,0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    .modal {
-      background-color: #2a2a2a;
-      padding: 2rem;
-      border-radius: 10px;
-      width: 320px;
-      box-shadow: 0 0 15px #900000;
-      color: #ddd;
-    }
-    .modal h2 {
-      margin-top: 0;
-    }
-    input, select {
-      width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.5rem;
-      margin-bottom: 1rem;
-      border-radius: 5px;
-      border: none;
-      font-size: 1rem;
-      background-color: #444;
-      color: white;
-    }
-    button {
-      background-color: #900000;
-      border: none;
-      color: white;
-      padding: 0.7rem 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1rem;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background-color: #b22222;
-    }
-    .error {
-      color: #f44336;
-      margin-bottom: 1rem;
-      font-weight: bold;
-      text-align: center;
-    }
-    button.logout-btn {
-      background-color: #444;
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
+    #loading {
+      font-size: 24px;
     }
   </style>
 </head>
 <body>
+  <div id="loading">Descriptografando conteúdo, aguarde...</div>
+  <script>
+    const senha = 'minha-senha-forte';
 
-<header>Códigos de Condomínio</header>
+    // Cole aqui o conteúdo criptografado (gerado pelo primeiro site)
+    const criptografado = U2FsdGVkX19Cu4ut9MYfFo68ChVF1IjQibvz8HMmWcQZBLxLNz7mYQ0PDtjmHoop0Q/ALxxoT6JnOT3bpjFC3+nDhH4dTnmwTWQKFNEP/iYfgeFFvY9i9dKDYOlctq5o5zY4fnRWpjp86W8xHKAmhEOFWTuLuHj0tsk+HcORXa3cTmpCKRRQa8ND+757Ide/gPuWhRolJ0BNvrnsTb4ov4jBLESM7JPzt+ItcGGm7nfGhapfoRVf93wK/Hn/yxEoAEYA7VGqayOded8I9RUDjnYRbTZl3WgfSXjSAX7dl0lgeFagVDOq1mZzehBiAnSp7bOuLecmKk1BOjBXzEj0iuLtepv8Tb4QFbaaWUZXv4bpQMieuNajcv+lIxx+wAeQH9dVFlRKnm5YmNdjJD3XHE9fd8KFQyIy9zoKHacsLG2INwuyaRV/d4167aDOYVKGxIVQ0U3gvdQvdsA1Tj03P4xPd9Zy5NCMRjZDbLjhsK0KMWZ43wQaQz+0oF0xNkt4aVCJCn683z+Ue+yY7yWTGNvVZKcVev2Xal7ZzQWyDcN1R95fTGJjFu5CP8I1g6pDZyP/HFhAbxkb+Ui+MwfFw4FaT8CGaLzYVMWucyYp+Hn4jxWFD6cfioYjYHLSXngygfi9rSIuGXX+GaqSStmSwNy47onbh+8pfec3GnWMnQrmkL0nKhIy48WVjVAtuISe7FouSVykqKIdmwOn4aZsuEMiU6rbcmJborB58oq9MmMcgxaDoOnpYl28jKyKfqQPW/gAon7bLjBWq4D7F69WkOKnHEbWR4mer68hkL18WfNFMdDWR4ryFQSGYJxQDVpEcrZkJYhiiD1MqHHcHGEWDMyqv9y3XYsxBB1OORn2bylqYLDZnSenLv+tk4awgWH3uhO0oydkoSzeyH4pZ+i6w6lhEIlsIvEQtk9YTonWMbsPhq6oTcI8t+huknO1Ogf/SVaKS84u+jFb2k5f/eqmTj/FxFNeAispyrdsV0oitKpz7eK5IpFts56D+SGhz8w/Hd8Iuu2tNkDMfgiKVxjO1Y1vzlRLWBjCpO3bqvuZackHrFp77tYxwaDy+eArzm5zp3qSOaeIkSK61fw4lihbBS3q6PedF0Tt11R/0FAffUuTj99T3PKv9Kbcvurjb6+WW7ZCgxuj6paB4doUw6bardiaQSZVYPx0aLx9Crc7JvJ6iwhzQpxav45OWycvVxSe8tdDMqaRlqI55IuNmL62Ju6f+VTx3x2XP4wIH+vw7MLERhorq51XEUdgeCk3e16QdXXGDh0ISjZSZsvsiE0Kx+rp0c4v9txCpa+mDiUjtdiDX1B7+4QeEbSZl1Gn1oHhZSaZnEKMrMCqvd+m+Qp6J+vFmnLaBdLOmnicncjJkhwzeCaej+eAMZzwnnx3yghTub84Kpdu40yJ7SGpTFZQ1C81rROqnuGeT1kGwI7swJIRZxEYLBNmmka4gYBbaWGpGF0kGwDcAGz1KjS++pW+iKYT2WOo7oGHnSJuSFy2jE/ifjX9c6tEIZ/YnLsgk1M7iEVjLFyPsDiQX13I5b9uFBMoKK1Y4SZ6Nk17BNt4FQhazgGE4eVKQJ6EtBEb522iBeuX9Ar09EDr4SUgGd2nzZ3EKVbk7W+ez8EA3oC+TUJ2C2/Y8/8wDRdmwNNSlrorkrwD2Bsx7CaxdgUTF3xWYtwZ9eIKDK+iK8iCPbduIoo=;
 
-<main id="main-list">
-  <p>Carregando códigos...</p>
-</main>
+    setTimeout(() => {
+      try {
+        const bytes = CryptoJS.AES.decrypt(criptografado, senha);
+        const htmlDescriptografado = bytes.toString(CryptoJS.enc.Utf8);
 
-<button class="admin-btn" id="btn-admin">Adm</button>
-
-<!-- Modal senha admin -->
-<div id="modal-login" class="modal-bg" style="display:none;">
-  <div class="modal">
-    <h2>Acesso Admin</h2>
-    <input type="password" id="input-password" placeholder="Digite a senha" />
-    <div class="error" id="login-error" style="display:none;"></div>
-    <button id="btn-login">Entrar</button>
-    <button id="btn-login-cancel" class="logout-btn">Cancelar</button>
-  </div>
-</div>
-
-<!-- Modal adicionar código -->
-<div id="modal-admin" class="modal-bg" style="display:none;">
-  <div class="modal">
-    <h2>Adicionar Código</h2>
-
-    <label for="select-categoria">Categoria</label>
-    <select id="select-categoria">
-      <option value="Oásis">Oásis</option>
-      <option value="Ouro Verde">Ouro Verde</option>
-    </select>
-
-    <label for="input-bloco">Bloco</label>
-    <input type="text" id="input-bloco" />
-
-    <label for="input-nome">Nome</label>
-    <input type="text" id="input-nome" />
-
-    <label for="input-ap">AP</label>
-    <input type="text" id="input-ap" />
-
-    <label for="input-codigo">Código</label>
-    <input type="text" id="input-codigo" />
-
-    <div class="error" id="admin-error" style="display:none;"></div>
-
-    <button id="btn-salvar">Salvar</button>
-    <button id="btn-logout" class="logout-btn">Sair</button>
-  </div>
-</div>
-
-<!-- Firebase SDK -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-  import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyC5iwoyZCtMawE50wsMycgDdpn0NelPkH8",
-    authDomain: "ooss-dc3bc.firebaseapp.com",
-    databaseURL: "https://ooss-dc3bc-default-rtdb.firebaseio.com",
-    projectId: "ooss-dc3bc",
-    storageBucket: "ooss-dc3bc.firebasestorage.app",
-    messagingSenderId: "808185149705",
-    appId: "1:808185149705:web:e35a5635346a27aaf9bbd8",
-    measurementId: "G-1PCPB7TZMW"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  // Elementos
-  const btnAdmin = document.getElementById("btn-admin");
-  const modalLogin = document.getElementById("modal-login");
-  const inputPassword = document.getElementById("input-password");
-  const btnLogin = document.getElementById("btn-login");
-  const loginError = document.getElementById("login-error");
-  const btnLoginCancel = document.getElementById("btn-login-cancel");
-
-  const modalAdmin = document.getElementById("modal-admin");
-  const selectCategoria = document.getElementById("select-categoria");
-  const inputBloco = document.getElementById("input-bloco");
-  const inputNome = document.getElementById("input-nome");
-  const inputAp = document.getElementById("input-ap");
-  const inputCodigo = document.getElementById("input-codigo");
-  const btnSalvar = document.getElementById("btn-salvar");
-  const btnLogout = document.getElementById("btn-logout");
-  const adminError = document.getElementById("admin-error");
-
-  const mainList = document.getElementById("main-list");
-
-  let loggedIn = false;
-  let codigosData = {};
-
-  // Abrir modal login
-  btnAdmin.addEventListener("click", () => {
-    modalLogin.style.display = "flex";
-    inputPassword.value = "";
-    loginError.style.display = "none";
-    inputPassword.focus();
-  });
-
-  btnLoginCancel.addEventListener("click", () => {
-    modalLogin.style.display = "none";
-  });
-
-  btnLogin.addEventListener("click", () => {
-    const senha = inputPassword.value.trim();
-    if (senha === "Benny31") {
-      loggedIn = true;
-      modalLogin.style.display = "none";
-      abrirModalAdmin();
-    } else {
-      loginError.textContent = "Senha incorreta!";
-      loginError.style.display = "block";
-    }
-  });
-
-  inputPassword.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") btnLogin.click();
-  });
-
-  // Abrir modal admin para adicionar códigos
-  function abrirModalAdmin() {
-    modalAdmin.style.display = "flex";
-    adminError.style.display = "none";
-    selectCategoria.value = "Oásis";
-    inputBloco.value = "";
-    inputNome.value = "";
-    inputAp.value = "";
-    inputCodigo.value = "";
-    inputBloco.focus();
-  }
-
-  btnLogout.addEventListener("click", () => {
-    loggedIn = false;
-    modalAdmin.style.display = "none";
-  });
-
-  btnSalvar.addEventListener("click", () => {
-    const categoria = selectCategoria.value;
-    const bloco = inputBloco.value.trim();
-    const nome = inputNome.value.trim();
-    const ap = inputAp.value.trim();
-    const codigo = inputCodigo.value.trim();
-
-    if (!bloco || !nome || !ap || !codigo) {
-      adminError.textContent = "Preencha todos os campos!";
-      adminError.style.display = "block";
-      return;
-    }
-
-    adminError.style.display = "none";
-
-    const codigosRef = ref(db, "codigos");
-    push(codigosRef, {
-      categoria,
-      bloco,
-      nome,
-      ap,
-      codigo,
-    }).then(() => {
-      alert("Código salvo com sucesso!");
-      selectCategoria.value = "Oásis";
-      inputBloco.value = "";
-      inputNome.value = "";
-      inputAp.value = "";
-      inputCodigo.value = "";
-      inputBloco.focus();
-    }).catch((error) => {
-      adminError.textContent = "Erro ao salvar: " + error.message;
-      adminError.style.display = "block";
-    });
-  });
-
-  // Apagar código
-  function apagarCodigo(id) {
-    if (!confirm("Confirma apagar este código?")) return;
-    const codigoRef = ref(db, `codigos/${id}`);
-    remove(codigoRef).catch(err => alert("Erro ao apagar: " + err.message));
-  }
-
-  // Ordena blocos numericamente (blocos podem ser string, tenta converter para número)
-  function ordenarBlocos(a, b) {
-    const numA = parseInt(a);
-    const numB = parseInt(b);
-    if (!isNaN(numA) && !isNaN(numB)) return numA - numB;
-    return a.localeCompare(b);
-  }
-
-  // Atualiza a lista de códigos na página, agrupando e ordenando
-  function atualizarLista(codigos) {
-    codigosData = codigos || {};
-
-    // Organizar por categoria -> bloco -> lista de códigos
-    const organizados = {
-      "Oásis": {},
-      "Ouro Verde": {}
-    };
-
-    for (const id in codigosData) {
-      const c = codigosData[id];
-      if (!organizados[c.categoria]) organizados[c.categoria] = {};
-      if (!organizados[c.categoria][c.bloco]) organizados[c.categoria][c.bloco] = [];
-      organizados[c.categoria][c.bloco].push({ ...c, id });
-    }
-
-    // Criar HTML agrupado
-    let html = "";
-
-    for (const categoria of ["Oásis", "Ouro Verde"]) {
-      const blocos = organizados[categoria];
-      html += `<section class="categoria-section"><h3>${categoria}</h3>`;
-
-      const blocosOrdenados = Object.keys(blocos).sort(ordenarBlocos);
-
-      if (blocosOrdenados.length === 0) {
-        html += "<p>Nenhum código salvo nesta categoria.</p>";
-      } else {
-        blocosOrdenados.forEach(bloco => {
-          html += `<div class="bloco-box"><div class="bloco-title">Bloco ${bloco}</div>`;
-
-          blocos[bloco].forEach(item => {
-            html += `<div class="codigo-subitem">
-              <div class="nome">${item.nome}</div>
-              <div>AP: ${item.ap}</div>
-              <div>Código: ${item.codigo}</div>
-              ${loggedIn ? `<button class="btn-apagar" data-id="${item.id}" title="Apagar código">×</button>` : ""}
-            </div>`;
-          });
-
-          html += `</div>`; // fim bloco-box
-        });
+        document.open();
+        document.write(htmlDescriptografado);
+        document.close();
+      } catch (e) {
+        document.body.innerHTML = "<h1 style='color:red;'>Erro ao descriptografar</h1>";
       }
-      html += `</section>`;
-    }
-
-    mainList.innerHTML = html;
-
-    // Adiciona event listeners para apagar
-    if (loggedIn) {
-      document.querySelectorAll(".btn-apagar").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const id = e.currentTarget.getAttribute("data-id");
-          apagarCodigo(id);
-        });
-      });
-    }
-  }
-
-  // Ouvir mudanças no Firebase
-  onValue(ref(db, "codigos"), (snapshot) => {
-    atualizarLista(snapshot.val());
-  });
-
-</script>
-
+    }, 1500); // atraso pra mostrar tela de loading
+  </script>
 </body>
 </html>
-
