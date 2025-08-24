@@ -1,45 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Carregando...</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tropa do ifood</title>
   <style>
-    html, body {
+    body {
       margin: 0;
-      height: 100%;
-      background: #111;
-      color: #0f0;
+      font-family: Arial, sans-serif;
+      background-color: #1e1e1e;
+      color: #ddd;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      background-color: #900000;
+      padding: 1rem;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: white;
+    }
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
       justify-content: center;
-      font-family: monospace;
     }
-    #loading {
-      font-size: 24px;
+    .categoria-section {
+      background-color: #2a2a2a;
+      padding: 1rem;
+      border-radius: 10px;
+      width: 45%;
+      min-width: 300px;
+      box-shadow: 0 0 10px #900000;
     }
-  </style>
-</head>
-<body>
-  <div id="loading">Descriptografando conteúdo, aguarde...</div>
-  <script>
-    const senha = 'minha-senha-forte';
-
-    // Cole aqui o conteúdo criptografado (gerado pelo primeiro site)
-    const criptografado = U2FsdGVkX19Cu4ut9MYfFo68ChVF1IjQibvz8HMmWcQZBLxLNz7mYQ0PDtjmHoop0Q/ALxxoT6JnOT3bpjFC3+nDhH4dTnmwTWQKFNEP/iYfgeFFvY9i9dKDYOlctq5o5zY4fnRWpjp86W8xHKAmhEOFWTuLuHj0tsk+HcORXa3cTmpCKRRQa8ND+757Ide/gPuWhRolJ0BNvrnsTb4ov4jBLESM7JPzt+ItcGGm7nfGhapfoRVf93wK/Hn/yxEoAEYA7VGqayOded8I9RUDjnYRbTZl3WgfSXjSAX7dl0lgeFagVDOq1mZzehBiAnSp7bOuLecmKk1BOjBXzEj0iuLtepv8Tb4QFbaaWUZXv4bpQMieuNajcv+lIxx+wAeQH9dVFlRKnm5YmNdjJD3XHE9fd8KFQyIy9zoKHacsLG2INwuyaRV/d4167aDOYVKGxIVQ0U3gvdQvdsA1Tj03P4xPd9Zy5NCMRjZDbLjhsK0KMWZ43wQaQz+0oF0xNkt4aVCJCn683z+Ue+yY7yWTGNvVZKcVev2Xal7ZzQWyDcN1R95fTGJjFu5CP8I1g6pDZyP/HFhAbxkb+Ui+MwfFw4FaT8CGaLzYVMWucyYp+Hn4jxWFD6cfioYjYHLSXngygfi9rSIuGXX+GaqSStmSwNy47onbh+8pfec3GnWMnQrmkL0nKhIy48WVjVAtuISe7FouSVykqKIdmwOn4aZsuEMiU6rbcmJborB58oq9MmMcgxaDoOnpYl28jKyKfqQPW/gAon7bLjBWq4D7F69WkOKnHEbWR4mer68hkL18WfNFMdDWR4ryFQSGYJxQDVpEcrZkJYhiiD1MqHHcHGEWDMyqv9y3XYsxBB1OORn2bylqYLDZnSenLv+tk4awgWH3uhO0oydkoSzeyH4pZ+i6w6lhEIlsIvEQtk9YTonWMbsPhq6oTcI8t+huknO1Ogf/SVaKS84u+jFb2k5f/eqmTj/FxFNeAispyrdsV0oitKpz7eK5IpFts56D+SGhz8w/Hd8Iuu2tNkDMfgiKVxjO1Y1vzlRLWBjCpO3bqvuZackHrFp77tYxwaDy+eArzm5zp3qSOaeIkSK61fw4lihbBS3q6PedF0Tt11R/0FAffUuTj99T3PKv9Kbcvurjb6+WW7ZCgxuj6paB4doUw6bardiaQSZVYPx0aLx9Crc7JvJ6iwhzQpxav45OWycvVxSe8tdDMqaRlqI55IuNmL62Ju6f+VTx3x2XP4wIH+vw7MLERhorq51XEUdgeCk3e16QdXXGDh0ISjZSZsvsiE0Kx+rp0c4v9txCpa+mDiUjtdiDX1B7+4QeEbSZl1Gn1oHhZSaZnEKMrMCqvd+m+Qp6J+vFmnLaBdLOmnicncjJkhwzeCaej+eAMZzwnnx3yghTub84Kpdu40yJ7SGpTFZQ1C81rROqnuGeT1kGwI7swJIRZxEYLBNmmka4gYBbaWGpGF0kGwDcAGz1KjS++pW+iKYT2WOo7oGHnSJuSFy2jE/ifjX9c6tEIZ/YnLsgk1M7iEVjLFyPsDiQX13I5b9uFBMoKK1Y4SZ6Nk17BNt4FQhazgGE4eVKQJ6EtBEb522iBeuX9Ar09EDr4SUgGd2nzZ3EKVbk7W+ez8EA3oC+TUJ2C2/Y8/8wDRdmwNNSlrorkrwD2Bsx7CaxdgUTF3xWYtwZ9eIKDK+iK8iCPbduIoo=;
-
-    setTimeout(() => {
-      try {
-        const bytes = CryptoJS.AES.decrypt(criptografado, senha);
-        const htmlDescriptografado = bytes.toString(CryptoJS.enc.Utf8);
-
-        document.open();
-        document.write(htmlDescriptografado);
-        document.close();
-      } catch (e) {
-        document.body.innerHTML = "<h1 style='color:red;'>Erro ao descriptografar</h1>";
-      }
-    }, 1500); // atraso pra mostrar tela de loading
-  </script>
-</body>
-</html>
+    .categoria-section h3 {
+      margin-top: 0;
+      text-align: center;
+      border-bottom: 2px solid #900000;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      color: #ff4d4d;
+    }
+    .bloco-box {
+      background-color: #333;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      padding: 0.7rem;
+    }
+    .bloco-title {
